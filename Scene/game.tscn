@@ -1,0 +1,99 @@
+[gd_scene load_steps=5 format=3 uid="uid://dcgx1y270aod2"]
+
+[ext_resource type="Script" path="res://Scripts/game.gd" id="1_1tyhs"]
+[ext_resource type="PackedScene" uid="uid://mdue51snato0" path="res://Scene/player.tscn" id="1_lypac"]
+[ext_resource type="PackedScene" uid="uid://dayg5kmtvq48e" path="res://Scene/pinetree.tscn" id="2_4wgar"]
+
+[sub_resource type="Curve2D" id="Curve2D_cylg6"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -279, 1231, 0, 0, 0, 0, 2040, 1233, 0, 0, 0, 0, 2037, -120, 0, 0, 0, 0, -286, -120, 0, 0, 0, 0, -279, 1231)
+}
+point_count = 5
+
+[node name="Game" type="Node2D"]
+y_sort_enabled = true
+position = Vector2(75, -48)
+script = ExtResource("1_1tyhs")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+offset_left = -2.0
+offset_top = -1.0
+offset_right = 38.0
+offset_bottom = 39.0
+scale = Vector2(48.04, 27.04)
+color = Color(0.926739, 0.91332, 0.912034, 1)
+
+[node name="Player" parent="." instance=ExtResource("1_lypac")]
+position = Vector2(842, 559)
+
+[node name="Path2D" type="Path2D" parent="Player"]
+position = Vector2(-819, -564)
+curve = SubResource("Curve2D_cylg6")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Player/Path2D"]
+unique_name_in_owner = true
+position = Vector2(-279, 1231)
+rotation = 0.000862441
+
+[node name="Pinetree" parent="." instance=ExtResource("2_4wgar")]
+position = Vector2(275, 359)
+
+[node name="Pinetree2" parent="." instance=ExtResource("2_4wgar")]
+position = Vector2(1383, 359)
+
+[node name="Pinetree3" parent="." instance=ExtResource("2_4wgar")]
+position = Vector2(1435, 317)
+
+[node name="Pinetree4" parent="." instance=ExtResource("2_4wgar")]
+position = Vector2(1309, 323)
+
+[node name="Pinetree5" parent="." instance=ExtResource("2_4wgar")]
+position = Vector2(299, 751)
+
+[node name="Pinetree6" parent="." instance=ExtResource("2_4wgar")]
+position = Vector2(1115, 943)
+
+[node name="Pinetree7" parent="." instance=ExtResource("2_4wgar")]
+position = Vector2(1409, 749)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.65
+autostart = true
+
+[node name="GameOver" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="GameOver"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.470588)
+
+[node name="Label" type="Label" parent="GameOver/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -46.0
+offset_top = -22.0
+offset_right = 46.0
+offset_bottom = 22.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.807843, 0, 0, 1)
+theme_override_font_sizes/font_size = 200
+text = "You Died!
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="health_depleted" from="Player" to="." method="_on_player_health_depleted"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
