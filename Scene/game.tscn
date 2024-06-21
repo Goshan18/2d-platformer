@@ -27,7 +27,7 @@ scale = Vector2(48.04, 27.04)
 color = Color(0.926739, 0.91332, 0.912034, 1)
 
 [node name="Player" parent="." instance=ExtResource("1_lypac")]
-position = Vector2(842, 559)
+position = Vector2(618, 529)
 
 [node name="Path2D" type="Path2D" parent="Player"]
 position = Vector2(-819, -564)
